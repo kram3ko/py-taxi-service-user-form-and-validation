@@ -20,7 +20,7 @@ class ExactLenValidator(BaseValidator):
 
 class FirstUpperLetter(BaseValidator):
     message = _("Ensure the first three characters are uppercase letters.")
-    code = "three_upper"
+    code = "first_upper"
 
     def compare(self, value, required_count):
         first_part = value[:required_count]
