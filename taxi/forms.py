@@ -5,13 +5,15 @@ from django.contrib.auth.forms import UserCreationForm
 from taxi.models import Car, Driver
 from taxi.validators import (
     ExactLenValidator,
-    FirstThreeUpperLetter,
-    LastFiveDigits,
+    FirstUpperLetter,
+    LastDigits,
 )
 
 
 class LicenseNumberFieldMixin:
     LEN_LICENSE = 8
+    FIRST_UPPER = 3
+    LAST_DIGITS = 5
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -22,8 +24,8 @@ class LicenseNumberFieldMixin:
                       "Last 5 must be digits.",
             validators=[
                 ExactLenValidator(limit_value=self.LEN_LICENSE),
-                FirstThreeUpperLetter(),
-                LastFiveDigits()
+                FirstUpperLetter(limit_value=self.FIRST_UPPER),
+                LastDigits(limit_value=self.LAST_DIGITS)
             ]
         )
 

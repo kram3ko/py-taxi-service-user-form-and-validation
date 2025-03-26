@@ -7,40 +7,35 @@ class ExactLenValidator(BaseValidator):
                 "characters (it has %(show_value)s).")
     code = "exact_length"
 
-    def compare(self, a, b):
-        return a != b
+    def compare(self, input_length, required_length):
+        return input_length != required_length
 
-    def clean(self, x):
-        return len(x)
+    def clean(self, value):
+        return len(value)
 
     def __call__(self, value):
         self.show_value = len(value)
         super().__call__(value)
 
 
-class FirstThreeUpperLetter(BaseValidator):
+class FirstUpperLetter(BaseValidator):
     message = _("Ensure the first three characters are uppercase letters.")
-    code = "thee_upper"
+    code = "three_upper"
 
-    def __init__(self):
-        super().__init__(limit_value=None)
+    def compare(self, value, required_count):
+        first_part = value[:required_count]
+        return not (first_part.isupper() and first_part.isalpha())
 
-    def compare(self, a, b):
-        return not (a[:3].isupper() and a[:3].isalpha())
-
-    def clean(self, x):
-        return x
+    def clean(self, value):
+        return value
 
 
-class LastFiveDigits(BaseValidator):
+class LastDigits(BaseValidator):
     message = _("Ensure the last five characters are digits.")
-    code = "last_five_digits"
+    code = "last_digits"
 
-    def __init__(self):
-        super().__init__(limit_value=None)
+    def compare(self, value, required_count):
+        return not (value[-required_count:].isdigit())
 
-    def compare(self, a, b):
-        return not (a[-5:].isdigit())
-
-    def clean(self, x):
-        return x
+    def clean(self, value):
+        return value
