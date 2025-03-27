@@ -19,9 +19,10 @@ class LicenseNumberFieldMixin:
         super().__init__(*args, **kwargs)
         self.fields["license_number"] = forms.CharField(
             required=True,
-            help_text="Your license must contain at least 8 characters. "
-                      "First 3 must be uppercase letters. "
-                      "Last 5 must be digits.",
+            help_text=f"""Your license must contain"
+                      at least {self.LEN_LICENSE} characters.
+                      First {self.FIRST_UPPER} must be uppercase letters.
+                      Last {self.LAST_DIGITS} must be digits.""",
             validators=[
                 ExactLenValidator(limit_value=self.LEN_LICENSE),
                 FirstUpperLetter(limit_value=self.FIRST_UPPER),

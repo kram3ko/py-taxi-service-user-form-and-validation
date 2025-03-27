@@ -3,39 +3,34 @@ from django.utils.translation import gettext_lazy as _
 
 
 class ExactLenValidator(BaseValidator):
-    message = _("Ensure this value has exactly %(limit_value)s "
-                "characters (it has %(show_value)s).")
+    message = _(
+        "Ensure this value has exactly %(limit_value)s "
+        "characters (it has %(show_value)s)."
+    )
     code = "exact_length"
-
-    def compare(self, input_length, required_length):
-        return input_length != required_length
 
     def clean(self, value):
         return len(value)
 
-    def __call__(self, value):
-        self.show_value = len(value)
-        super().__call__(value)
+    def compare(self, input_length, required_length):
+        return input_length != required_length
 
 
 class FirstUpperLetter(BaseValidator):
-    message = _("Ensure the first three characters are uppercase letters.")
+    message = _(
+        "Ensure the first characters %(limit_value)s are uppercase letters."
+    )
     code = "first_upper"
 
     def compare(self, value, required_count):
         first_part = value[:required_count]
         return not (first_part.isupper() and first_part.isalpha())
 
-    def clean(self, value):
-        return value
-
 
 class LastDigits(BaseValidator):
-    message = _("Ensure the last five characters are digits.")
+    message = _("Ensure the last %(limit_value)s characters are digits.")
     code = "last_digits"
 
     def compare(self, value, required_count):
-        return not (value[-required_count:].isdigit())
-
-    def clean(self, value):
-        return value
+        last_part_digit = value[-required_count:]
+        return not last_part_digit.isdigit()
