@@ -137,6 +137,9 @@ class DriverUpdateView(LoginRequiredMixin, generic.UpdateView):
         if form_license == "upd_license":
             return DriverLicenseUpdateForm
         return DriverLicenseUpdateForm
+        # NOTE: The test expects only the driver's license to be updated,
+        # here logic. depend on what form comes gives correct form
+        # keep for myself.
         # return CustomDriverCreationForm
 
     def get_success_url(self):
