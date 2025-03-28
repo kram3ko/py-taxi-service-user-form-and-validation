@@ -1,7 +1,7 @@
 from django.urls import path
 
 from taxi.views import (
-    AssignToCarView,
+    AssignCarView,
     CarCreateView,
     CarDeleteView,
     CarDetailView,
@@ -49,7 +49,7 @@ urlpatterns = [
     path("cars/create/", CarCreateView.as_view(), name="car-create"),
     path("cars/", CarsListView.as_view(), name="car-list"),
     path("cars/<int:pk>/", CarDetailView.as_view(), name="car-detail"),
-    path("cars/<int:pk>/assign/", AssignToCarView.as_view(), name="car-assign"),
+    path("cars/<int:pk>/assign/", AssignCarView.as_view(), name="car-assign"),
     path("cars/<int:pk>/update/", CarUpdateView.as_view(), name="car-update"),
     path("cars/<int:pk>/delete/", CarDeleteView.as_view(), name="car-delete"),
     path("drivers/create", DriverCreateView.as_view(), name="driver-create"),

@@ -81,7 +81,7 @@ class CarDetailView(LoginRequiredMixin, generic.DetailView):
     model = Car
 
 
-class AssignToCarView(LoginRequiredMixin, View):
+class AssignCarView(LoginRequiredMixin, View):
     def get(self, request, pk):
         car = get_object_or_404(Car, pk=pk)
         return render(request, "taxi/assign_confirm.html", {"car": car})
